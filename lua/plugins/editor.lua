@@ -180,6 +180,11 @@ return {
           theme = "dropdown",
           -- disables netrw and use telescope-file-browser in its place
           hijack_netrw = true,
+          initial_mode = "normal",
+          respect_gitignore = false,
+          hidden = true,
+          grouped = true,
+          previewer = true,
           mappings = {
             -- your custom insert mode mappings
             ["n"] = {

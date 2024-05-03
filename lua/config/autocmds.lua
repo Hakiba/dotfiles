@@ -8,6 +8,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
   command = "set nopaste",
 })
 
+--open vim with telescope find_files
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
+  command = "Telescope file_browser",
+})
+
 -- Disable the concealing in some file formats
 -- The default conceallevel is 3 in LazyVim
 vim.api.nvim_create_autocmd("FileType", {
