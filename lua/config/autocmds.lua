@@ -22,3 +22,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.conceallevel = 0
   end,
 })
+
+vim.cmd(":Copilot disable")
