@@ -23,4 +23,4 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.cmd(":Copilot disable")
+-- vim.cmd(":Copilot disable")
