@@ -9,9 +9,15 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 --open vim with telescope find_files
+
 vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  command = "Telescope file_browser",
+  callback = function()
+    -- Vérifie si aucun fichier spécifique n'est passé en argument
+    if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+      -- Lance Telescope file_browser uniquement si aucun fichier n'est donné ou si un dossier est donné
+      vim.cmd("Telescope file_browser")
+    end
+  end,
 })
 
 -- Disable the concealing in some file formats

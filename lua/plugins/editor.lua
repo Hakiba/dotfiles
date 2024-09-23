@@ -48,6 +48,7 @@ return {
     },
   },
   -- Telescope
+
   {
     "telescope.nvim",
     dependencies = {
@@ -76,7 +77,7 @@ return {
             hidden = true,
           })
         end,
-        desc = "Lists files in your current working directory, respects .gitignore",
+        desc = "List files in the current working directory, respects .gitignore",
       },
       {
         ";r",
@@ -86,7 +87,7 @@ return {
             additional_args = { "--hidden" },
           })
         end,
-        desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
+        desc = "Search for a string in your current working directory",
       },
       {
         "\\\\",
@@ -94,7 +95,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.buffers()
         end,
-        desc = "Lists open buffers",
+        desc = "List open buffers",
       },
       {
         ";t",
@@ -102,7 +103,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.help_tags()
         end,
-        desc = "Lists available help tags and opens a new window with the relevant help info on <cr>",
+        desc = "List available help tags",
       },
       {
         ";;",
@@ -110,7 +111,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.resume()
         end,
-        desc = "Resume the previous telescope picker",
+        desc = "Resume previous Telescope picker",
       },
       {
         ";e",
@@ -118,7 +119,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.diagnostics()
         end,
-        desc = "Lists Diagnostics for all open buffers or a specific buffer",
+        desc = "List diagnostics for open buffers",
       },
       {
         ";s",
@@ -126,17 +127,15 @@ return {
           local builtin = require("telescope.builtin")
           builtin.treesitter()
         end,
-        desc = "Lists Function names, variables, from Treesitter",
+        desc = "List functions, variables from Treesitter",
       },
       {
         "sf",
         function()
           local telescope = require("telescope")
-
           local function telescope_buffer_dir()
             return vim.fn.expand("%:p:h")
           end
-
           telescope.extensions.file_browser.file_browser({
             path = "%:p:h",
             cwd = telescope_buffer_dir(),
@@ -145,10 +144,9 @@ return {
             grouped = true,
             previewer = true,
             initial_mode = "normal",
-            -- layout_config = { height = 40 },
           })
         end,
-        desc = "Open File Browser with the path of the current buffer",
+        desc = "Open File Browser for the current buffer",
       },
     },
     config = function(_, opts)
@@ -178,18 +176,15 @@ return {
       opts.extensions = {
         file_browser = {
           theme = "dropdown",
-          -- disables netrw and use telescope-file-browser in its place
+          -- Disables netrw and uses telescope-file-browser
           hijack_netrw = true,
-          -- hijack_netrw = false,
           initial_mode = "normal",
           respect_gitignore = false,
           hidden = true,
           grouped = true,
           previewer = true,
           mappings = {
-            -- your custom insert mode mappings
-            ["n"] = {
-              -- your custom normal mode mappings
+            n = {
               ["N"] = fb_actions.create,
               ["h"] = fb_actions.goto_parent_dir,
               ["/"] = function()
@@ -212,8 +207,8 @@ return {
         },
       }
       telescope.setup(opts)
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("file_browser")
+      telescope.load_extension("fzf")
+      telescope.load_extension("file_browser")
     end,
   },
 }
