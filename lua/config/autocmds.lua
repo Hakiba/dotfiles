@@ -10,16 +10,6 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 
 --open vim with telescope find_files
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    -- Vérifie si aucun fichier spécifique n'est passé en argument
-    if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
-      -- Lance Telescope file_browser uniquement si aucun fichier n'est donné ou si un dossier est donné
-      vim.cmd("Telescope file_browser")
-    end
-  end,
-})
-
 -- Disable the concealing in some file formats
 -- The default conceallevel is 3 in LazyVim
 vim.api.nvim_create_autocmd("FileType", {
@@ -29,4 +19,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- Vérifie si Telescope est chargé avant d'exécuter la commande
+    local telescope_ok, telescope = pcall(require, "telescope")
+    if telescope_ok then
+      -- Affiche un message lorsque Vim démarre et que Telescope est configuré in normal mode
+
+      vim.cmd("Telescope file_browser")
+    else
+      print("Telescope not loaded correctly.")
+    end
+  end,
+})
 -- vim.cmd(":Copilot disable")
