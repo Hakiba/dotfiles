@@ -134,7 +134,7 @@ return {
         __inherited_from = "openai",
         api_key_name = "OPENAI_API_KEY",
         endpoint = "https://api.openai.com/v1",
-        model = "gpt-4o"
+        model = "gpt-4o",
         max_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
       },
     },
@@ -160,6 +160,7 @@ return {
         opts = {
           -- recommended settings
           default = {
+
             embed_image_as_base64 = false,
             prompt_for_file_name = false,
             drag_and_drop = {
