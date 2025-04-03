@@ -21,14 +21,15 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    -- Vérifie si Telescope est chargé avant d'exécuter la commande
-    local telescope_ok, telescope = pcall(require, "telescope")
-    if telescope_ok then
-      -- Affiche un message lorsque Vim démarre et que Telescope est configuré in normal mode
-
-      vim.cmd("Telescope file_browser")
-    else
-      print("Telescope not loaded correctly.")
+    -- Vérifie si aucun fichier n'est spécifié (comme vim sans arguments) ou si on ouvre un répertoire (vim .)
+    if vim.fn.argc() == 0 or vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+      -- Vérifie si Telescope est chargé avant d'exécuter la commande
+      local telescope_ok, telescope = pcall(require, "telescope")
+      if telescope_ok then
+        vim.cmd("Telescope file_browser")
+      else
+        print("Telescope not loaded correctly.")
+      end
     end
   end,
 })
